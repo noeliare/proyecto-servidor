@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors= require('cors');
@@ -14,6 +15,7 @@ servidor.get("/", (peti, resp)=>{
 
 servidor.use ("/proyecto", require('./rutas/ruta-proyectos'));
 servidor.use ("/autores", require('./rutas/ruta-autores'));
+servidor.use ("/sesion", require ('./rutas/ruta-sesion'));
 
 servidor.listen(3000, ()=>{
     console.log("Servidor escuchando en el puerto 3000");
