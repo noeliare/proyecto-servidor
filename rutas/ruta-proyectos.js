@@ -7,6 +7,7 @@ router.get("/", async (peticion, respuesta) => {
         const listaProyecto = await tablaProyecto.select();
        /* setTimeout(() =>{
         }, 3000);*/
+        console.log(listaProyecto)
         respuesta.json(listaProyecto);
         
     } catch (err) {
@@ -17,7 +18,6 @@ router.get("/", async (peticion, respuesta) => {
 router.post("/", async (peticion, respuesta) => {
     try {
         const proyectoRecibido = peticion.body;
-        console.log(proyectoRecibido);
         await tablaProyecto.insert(proyectoRecibido);
         respuesta.sendStatus(200);
     } catch (err) {

@@ -11,7 +11,7 @@ async function insert(proyecto) {
 
 async function select() {
     try {
-        const [registro, campos] = await conexion.execute('SELECT * FROM proyecto order by idproyecto ASC');
+        const [registro, campos] = await conexion.execute('SELECT * FROM proyectos order by idproyecto ASC');
         return registro;
     } catch (err) {
         console.log('Error al consultar proyecto', err);
