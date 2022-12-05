@@ -1,16 +1,18 @@
 const { Router } = require ('express');
 const router = Router();
 const tablaUsuario = require('./../baseDatos/usuario-bd');
-const jwt = require ('jsonwebtoken');
-const jwtUtilis = require('../utilidades/token-utils.js'); 
+const jwt= require('jsonwebtoken');
+const jwtUtils = require('./../utilidades/token-utils'); 
 
-router.post("/iniciar", async (peticion, respueata)=>{
+router.post("/iniciar", async (peticion, respuesta)=>{
     try{
         const { ci, password } = peticion.body;
+        console.log(peticion.body)
         const usuarios = await tablaUsuario.getUsuarioPorCi(ci, password);
+        console.log(usuarios);
         if(usuarios.length !== 0){
             const usuario = usuarios[0];
-            const token = await jwtUtils.generarToken(usuario.id);
+            const token = await jwtUtils.generarToken(usuario.idusuario);
             respuesta.json({token});
         }else{
             respuesta.sendStatus(401);
@@ -27,7 +29,7 @@ router.post("/mantener", async (peticion, respuesta)=>{
         if(tokenNuevo){
             respuesta.json({token: tokenNuevo});
         }else{
-           respuesta.sendStatus(400);
+           respuesta.sendStatus(403);
         }
 
     }catch(e){
