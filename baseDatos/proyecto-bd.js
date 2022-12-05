@@ -1,8 +1,9 @@
 const conexion = require('./conexion');
 
-async function insert(proyecto) {
+async function insert(proyectos) {
     try {
-        await conexion.execute('INSERT INTO proyecto(idproyecto, titulo, idcohorte, idautores, paginas, idtecnicaturas) VALUES(?, ?, ?, ?, ?, ?)', [proyecto.idproyecto, proyecto.titulo, proyecto.idcohorte, proyecto.idautores, proyecto.paginas, proyecto.idtecnicaturas]);
+        await conexion.execute('INSERT INTO proyectos (idproyecto, titulo, idCohorte, idAutores, paginas, idtecnicaturas) VALUES (?,?,?,?,?,?)', 
+        [proyectos.idproyecto, proyectos.titulo, proyectos.idCohorte, proyectos.idAutores, proyectos.paginas, proyectos.idtecnicaturas]);
     } catch (err) {
         console.log('Error al insertar proyecto', err);
         throw err;
@@ -11,7 +12,7 @@ async function insert(proyecto) {
 
 async function select() {
     try {
-        const [registro, campos] = await conexion.execute('SELECT * FROM proyectos order by idproyecto ASC');
+        const [registro, campos] = await conexion.execute('SELECT * FROM vista_proyectos order by idproyecto ASC');
         return registro;
     } catch (err) {
         console.log('Error al consultar proyecto', err);
@@ -19,11 +20,11 @@ async function select() {
     }
 }
 
-async function update(proyecto) {
+async function update(proyectos) {
     try {
         const [res] = await conexion.execute(
-            'UPDATE proyecto SET titulo = ?, idcohorte = ?, idautores = ?, paginas = ?, idtecnicaturas = ? WHERE idproyecto = ?',
-            [proyecto.titulo, proyecto.idcohorte, proyecto.idautores, proyecto.paginas, proyecto.idtecnicaturas, proyecto.idproyecto]
+            'UPDATE proyectos SET titulo = ?, idCohorte = ?, idAutores = ?, paginas = ?, idtecnicaturas = ? WHERE idproyecto = ?',
+            [proyectos.titulo, proyectos.idCohorte, proyectos.idAutores, proyectos.paginas, proyectos.idtecnicaturas, proyectos.idproyecto]
         );
         console.log(res);
     } catch (err) {
@@ -32,11 +33,11 @@ async function update(proyecto) {
     }
 }
 
-async function eliminar(id) {
+async function eliminar(idproyecto) {
     try {
         await conexion.execute(
-            'DELETE FROM proyecto WHERE idproyecto= ?',
-            [id]
+            'DELETE FROM proyectos WHERE idproyecto= ?',
+            [idproyecto]
         );
     } catch (err) {
         console.log('Error al eliminar proyecto', err);

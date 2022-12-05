@@ -2,7 +2,7 @@ const conexion = require('./conexion');
 
 async function insert(cohorte) {
     try {
-        await conexion.execute('INSERT INTO cohorte(idcohorte, idtecnicaturas, años) VALUES( ?, ?, ?)', [cohorte.idcohorte, cohorte.idtecnicaturas, cohorte.años]);
+        await conexion.execute('INSERT INTO cohorte(idcohorte, anhosdesde, anhoshasta) VALUES( ?, ?, ?)', [cohorte.idcohorte, cohorte.anhosdesde, cohorte.anhoshasta]);
     } catch (err) {
         console.log('Error al insertar el cohorte', err);
         throw err;
@@ -11,7 +11,7 @@ async function insert(cohorte) {
 
 async function select() {
     try {
-        const [registro, campos] = await conexion.execute('SELECT * FROM cohorte order by años ASC');
+        const [registro, campos] = await conexion.execute('SELECT * FROM cohorte');
         return registro;
     } catch (err) {
         console.log('Error al consultar el cohorte', err);
@@ -22,8 +22,8 @@ async function select() {
 async function update(cohorte) {
     try {
         const [res] = await conexion.execute(
-            'UPDATE cohorte SET idtecnicaturas = ?, años = ? WHERE idcohorte = ?',
-            [cohorte.idtecnicaturas, cohorte.años, cohorte.idcohorte]
+            'UPDATE cohorte SET anhosdesde = ?, anhoshasta = ? WHERE idcohorte = ?',
+            [cohorte.anhosdesde, cohorte.anhoshasta, cohorte.idcohorte]
         );
         console.log(res);
     } catch (err) {

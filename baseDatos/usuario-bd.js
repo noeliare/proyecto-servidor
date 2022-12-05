@@ -46,4 +46,15 @@ async function eliminar(id) {
     }
 }
 
-module.exports = { insert, select, update, eliminar}
+async function getUsuarioPorCi(ci, password) {
+    try {
+        const [resultado] = await conexion.query('SELECT * FROM usuario WHERE ci = ? AND password = sha2(?, 256)', [ci, password]);
+        return resultado;
+
+    } catch (e) {
+        console.error('Error al Consultar usuario por ci y password ', e);
+        throw e;
+    }
+}
+
+module.exports = { insert, select, update, eliminar, getUsuarioPorCi}

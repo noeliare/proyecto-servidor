@@ -2,7 +2,7 @@ const conexion = require('./conexion');
 
 async function insert(tecnicaturas) {
     try {
-        await conexion.execute('INSERT INTO tecnicatura(idtecnicaturas, especialidades) VALUES(?, ?)', [tecnicaturas.idtecnicaturas, tecnicaturas.especialidades]);
+        await conexion.execute('INSERT INTO tecnicaturas(idtecnicaturas, especialidades) VALUES(?, ?)', [tecnicaturas.idtecnicaturas, tecnicaturas.especialidades]);
     } catch (err) {
         console.log('Error al insertar tecnicaturas', err);
         throw err;
@@ -11,7 +11,7 @@ async function insert(tecnicaturas) {
 
 async function select() {
     try {
-        const [registro, campos] = await conexion.execute('SELECT * FROM tecnicaturas order by idtecnicaturas ASC');
+        const [registro, campos] = await conexion.execute('SELECT *FROM tecnicaturas order by idtecnicaturas ASC');
         return registro;
     } catch (err) {
         console.log('Error al consultar tecnicaturas', err);
